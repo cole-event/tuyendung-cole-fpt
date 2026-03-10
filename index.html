@@ -12,11 +12,15 @@
                 extend: {
                     colors: {
                         vibe: {
-                            dark: '#0B0F19',
-                            card: '#151C2C',
-                            primary: '#8B5CF6',
-                            secondary: '#06B6D4',
-                            accent: '#F43F5E'
+                            bg: '#FFFFFF',          // Nền trắng chủ đạo
+                            card: '#FFFFFF',        // Nền thẻ ứng viên trắng
+                            primary: '#1D4ED8',     // Xanh dương giáo dục (Xanh đậm)
+                            secondary: '#3B82F6',   // Xanh dương nhạt hơn (Làm gradient)
+                            accent: '#E11D48',      // Đỏ hồng (Dùng cho nút từ chối)
+                            textMain: '#3E2723',    // Chữ màu Nâu đen dễ đọc
+                            textLight: '#5D4037',   // Chữ Nâu nhạt cho các mô tả phụ
+                            border: '#E2E8F0',      // Viền xám nhạt
+                            lightBlue: '#EFF6FF'    // Nền xanh siêu nhạt cho các box nổi bật
                         }
                     }
                 }
@@ -24,11 +28,11 @@
         }
     </script>
     <style>
-        /* Custom Scrollbar cho phong cách Vibe */
+        /* Custom Scrollbar cho phong cách sáng */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0B0F19; }
-        ::-webkit-scrollbar-thumb { background: #8B5CF6; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #06B6D4; }
+        ::-webkit-scrollbar-track { background: #F1F5F9; }
+        ::-webkit-scrollbar-thumb { background: #1D4ED8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1E3A8A; }
         
         /* Animation cho Popup */
         .modal-enter { animation: fadeIn 0.3s ease-out forwards; }
@@ -38,14 +42,14 @@
         @keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
-<body class="bg-vibe-dark text-gray-200 font-sans min-h-screen">
+<body class="bg-vibe-bg text-vibe-textMain font-sans min-h-screen">
 
     <!-- 1. Header / Navigation -->
-    <nav class="flex flex-col md:flex-row items-center md:items-start p-6 bg-vibe-card border-b border-vibe-primary/30 shadow-lg shadow-vibe-primary/10">
+    <nav class="flex flex-col md:flex-row items-center md:items-start p-6 bg-white border-b border-vibe-border shadow-sm">
         <!-- 2 Logo Ảnh -->
         <div class="flex items-center space-x-4 mb-4 md:mb-0">
             <!-- Thay src bằng link logo thực tế của bạn -->
-            <img src="https://cole.edu.vn/wp-content/uploads/2026/02/logo-cole-white-width_2000.png" alt="Logo 1" class="h-12 w-auto object-contain">
+            <img src="https://cole.edu.vn/wp-content/uploads/2026/02/logo-cole-white-width_2000.png" alt="Logo 1" class="h-12 w-auto object-contain bg-vibe-primary p-1 rounded">
             <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-FPT.png" alt="Logo 2" class="h-12 w-auto object-contain">
         </div>
         <!-- Tiêu đề Ladipage -->
@@ -63,7 +67,7 @@
 
     <!-- 3. Nút nhận thông tin qua Email -->
     <div class="container mx-auto px-4 pb-12 flex justify-center">
-        <button onclick="requestEmail()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-vibe-secondary hover:from-blue-600 hover:to-blue-400 text-white font-bold text-lg shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-1 flex items-center gap-3">
+        <button onclick="requestEmail()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-vibe-primary to-vibe-secondary hover:opacity-90 text-white font-bold text-lg shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-1 flex items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -74,46 +78,45 @@
     <!-- ================= MODALS ================= -->
 
     <!-- Modal 1: Từ chối (Lý do) -->
-    <div id="rejectModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm modal-enter">
-        <div class="bg-vibe-card border border-vibe-primary/50 rounded-2xl p-6 md:p-8 w-full max-w-lg mx-4 modal-content-enter shadow-2xl shadow-vibe-primary/20">
+    <div id="rejectModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm modal-enter">
+        <div class="bg-white border border-vibe-border rounded-2xl p-6 md:p-8 w-full max-w-lg mx-4 modal-content-enter shadow-2xl">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-vibe-accent">Vui lòng điền lý do từ chối!</h2>
-                <button onclick="closeModal('rejectModal')" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                <button onclick="closeModal('rejectModal')" class="text-gray-400 hover:text-vibe-accent text-2xl">&times;</button>
             </div>
-            <p class="text-sm text-gray-400 mb-6">Để cải thiện chất lượng CV, bạn vui lòng điền các lý do chưa phù hợp thật chi tiết!</p>
+            <p class="text-sm text-vibe-textLight mb-6">Để cải thiện chất lượng CV, bạn vui lòng điền các lý do chưa phù hợp thật chi tiết!</p>
             
             <form id="rejectForm" onsubmit="submitReject(event)">
                 <div class="mb-5">
-                    <label class="block text-white font-semibold mb-3">1. Ứng viên này chưa phù hợp vì: <span class="text-xs text-gray-400 font-normal">(Có thể chọn nhiều)</span></label>
+                    <label class="block text-vibe-textMain font-semibold mb-3">1. Ứng viên này chưa phù hợp vì: <span class="text-xs text-gray-500 font-normal">(Có thể chọn nhiều)</span></label>
                     <div class="space-y-2 pl-2">
                         <label class="flex items-center space-x-3 cursor-pointer group">
-                            <input type="checkbox" name="reason" value="Tuổi quá ít" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-600 bg-gray-800 focus:ring-vibe-accent focus:ring-offset-gray-900">
-                            <span class="text-gray-300 group-hover:text-white transition">Tuổi quá ít</span>
+                            <input type="checkbox" name="reason" value="Tuổi quá ít" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-300 bg-white focus:ring-vibe-accent">
+                            <span class="text-vibe-textMain group-hover:text-vibe-accent transition">Tuổi quá ít</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer group">
-                            <input type="checkbox" name="reason" value="Tuổi quá cao" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-600 bg-gray-800 focus:ring-vibe-accent focus:ring-offset-gray-900">
-                            <span class="text-gray-300 group-hover:text-white transition">Tuổi quá cao</span>
+                            <input type="checkbox" name="reason" value="Tuổi quá cao" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-300 bg-white focus:ring-vibe-accent">
+                            <span class="text-vibe-textMain group-hover:text-vibe-accent transition">Tuổi quá cao</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer group">
-                            <input type="checkbox" name="reason" value="Vị trí này đã có ứng viên khác phù hợp hơn" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-600 bg-gray-800 focus:ring-vibe-accent focus:ring-offset-gray-900">
-                            <span class="text-gray-300 group-hover:text-white transition">Vị trí này đã có ứng viên khác phù hợp hơn</span>
+                            <input type="checkbox" name="reason" value="Vị trí này đã có ứng viên khác phù hợp hơn" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-300 bg-white focus:ring-vibe-accent">
+                            <span class="text-vibe-textMain group-hover:text-vibe-accent transition">Vị trí này đã có ứng viên khác phù hợp hơn</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer group">
-                            <input type="checkbox" name="reason" value="Kinh nghiệm chưa phù hợp" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-600 bg-gray-800 focus:ring-vibe-accent focus:ring-offset-gray-900">
-                            <span class="text-gray-300 group-hover:text-white transition">Kinh nghiệm chưa phù hợp</span>
+                            <input type="checkbox" name="reason" value="Kinh nghiệm chưa phù hợp" class="form-checkbox h-5 w-5 text-vibe-accent rounded border-gray-300 bg-white focus:ring-vibe-accent">
+                            <span class="text-vibe-textMain group-hover:text-vibe-accent transition">Kinh nghiệm chưa phù hợp</span>
                         </label>
-                        <!-- Thêm code html checkbox ở đây nếu cần thêm lý do -->
                     </div>
                 </div>
 
                 <div class="mb-6">
-                    <label for="otherReason" class="block text-white font-semibold mb-2">2. Lý do khác:</label>
-                    <textarea id="otherReason" name="otherReason" rows="3" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-vibe-accent focus:ring-1 focus:ring-vibe-accent transition placeholder-gray-500" placeholder="Nhập lý do khác tại đây..."></textarea>
+                    <label for="otherReason" class="block text-vibe-textMain font-semibold mb-2">2. Lý do khác:</label>
+                    <textarea id="otherReason" name="otherReason" rows="3" class="w-full bg-white border border-gray-300 rounded-lg p-3 text-vibe-textMain focus:outline-none focus:border-vibe-primary focus:ring-1 focus:ring-vibe-primary transition placeholder-gray-400" placeholder="Nhập lý do khác tại đây..."></textarea>
                 </div>
 
                 <div class="flex justify-end space-x-3">
-                    <button type="button" onclick="closeModal('rejectModal')" class="px-5 py-2.5 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-800 transition">Hủy</button>
-                    <button type="submit" class="px-5 py-2.5 rounded-lg bg-vibe-accent hover:bg-red-600 text-white font-semibold transition shadow-lg shadow-vibe-accent/30 flex items-center">
+                    <button type="button" onclick="closeModal('rejectModal')" class="px-5 py-2.5 rounded-lg border border-gray-300 text-vibe-textLight hover:bg-gray-100 transition font-semibold">Hủy</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-lg bg-vibe-accent hover:bg-red-700 text-white font-semibold transition shadow-md flex items-center">
                         <span id="rejectBtnText">Hoàn Thành</span>
                     </button>
                 </div>
@@ -122,29 +125,29 @@
     </div>
 
     <!-- Modal 2: Xem thêm (Xem CV PDF) -->
-    <div id="viewModal" class="fixed inset-0 z-40 hidden items-center justify-center bg-black/80 backdrop-blur-sm modal-enter">
-        <div class="bg-vibe-card border border-vibe-secondary/50 rounded-2xl w-full max-w-5xl mx-4 h-[90vh] flex flex-col modal-content-enter shadow-2xl shadow-vibe-secondary/20">
+    <div id="viewModal" class="fixed inset-0 z-40 hidden items-center justify-center bg-black/60 backdrop-blur-sm modal-enter">
+        <div class="bg-white border border-vibe-border rounded-2xl w-full max-w-5xl mx-4 h-[90vh] flex flex-col modal-content-enter shadow-2xl">
             <!-- Header Modal -->
-            <div class="flex justify-between items-center p-4 border-b border-gray-700">
-                <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-vibe-secondary to-blue-400" id="viewModalTitle">Chi tiết CV Ứng Viên</h2>
-                <button onclick="closeModal('viewModal')" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-vibe-primary" id="viewModalTitle">Chi tiết CV Ứng Viên</h2>
+                <button onclick="closeModal('viewModal')" class="text-gray-400 hover:text-vibe-accent text-3xl leading-none">&times;</button>
             </div>
             
             <!-- Body Modal (Iframe PDF) -->
-            <div class="flex-grow p-2 bg-gray-900 relative">
-                <!-- Vị trí gắn link Google Drive. Yêu cầu: Đổi /view thành /preview trong link Drive -->
-                <iframe id="pdfIframe" src="" class="w-full h-full rounded border border-gray-700" allow="autoplay"></iframe>
-                <div id="pdfLoading" class="absolute inset-0 flex items-center justify-center bg-gray-900 pointer-events-none">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-vibe-secondary"></div>
+            <div class="flex-grow p-2 bg-gray-100 relative">
+                <!-- Vị trí gắn link Google Drive -->
+                <iframe id="pdfIframe" src="" class="w-full h-full rounded border border-gray-300 bg-white" allow="autoplay"></iframe>
+                <div id="pdfLoading" class="absolute inset-0 flex items-center justify-center bg-gray-100 pointer-events-none">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-vibe-primary"></div>
                 </div>
             </div>
 
             <!-- Footer Modal (Buttons) -->
-            <div class="p-4 border-t border-gray-700 flex justify-end space-x-4 bg-vibe-card rounded-b-2xl">
+            <div class="p-4 border-t border-gray-200 flex justify-end space-x-4 bg-gray-50 rounded-b-2xl">
                 <button id="modalBtnReject" onclick="handleRejectClick(currentCandidateId)" class="px-6 py-2.5 rounded-lg border border-vibe-accent text-vibe-accent hover:bg-vibe-accent hover:text-white transition font-semibold">
                     Từ chối
                 </button>
-                <button id="modalBtnAccept" onclick="toggleAcceptCandidate(currentCandidateId)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-vibe-primary to-vibe-secondary hover:from-purple-500 hover:to-blue-400 text-white transition font-semibold shadow-lg shadow-vibe-primary/30">
+                <button id="modalBtnAccept" onclick="toggleAcceptCandidate(currentCandidateId)" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-vibe-primary to-vibe-secondary hover:opacity-90 text-white transition font-semibold shadow-md shadow-blue-500/30">
                     Đồng ý
                 </button>
             </div>
@@ -160,24 +163,6 @@
         // 1. GẮN LINK GOOGLE APPS SCRIPT VÀO ĐÂY
         const APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFJ7av43xtRM9VRSF4zu6SdwMyhgNYMyynhMFzIMQIxpsAA0d4oko44Xy7-fN2r6Yt/exec"; 
 
-        // ==========================================
-        // 2. HƯỚNG DẪN THÊM ỨNG VIÊN MỚI
-        // Để thêm người mới, hãy copy đoạn code trong thẻ /* ... */ bên dưới 
-        // và dán vào bên trong mảng candidates = [ ... ] ở dưới. Dấu phẩy ngăn cách giữa các ứng viên.
-        /*
-        {
-            id: "Mã_UV_Mới", // Phải khác nhau, ví dụ: UV003
-            name: "Tên Ứng Viên",
-            position: "Vị trí ứng tuyển",
-            yob: 1995,
-            age: 29,
-            avatar: "Link_ảnh_avatar",
-            desc: "Ưu điểm: Ghi chú vào đây...",
-            pdfLink: "Link_Google_Drive_Phải_Có_Đuôi_/preview",
-            status: "pending" // Luôn để pending
-        },
-        */
-
         // DỮ LIỆU ỨNG VIÊN
         let candidates = [
             {
@@ -188,9 +173,8 @@
                 age: 28,
                 avatar: "https://i.pravatar.cc/150?img=11",
                 desc: "Ưu điểm: 5 năm kinh nghiệm làm việc với ReactJS, VueJS. Có khả năng tối ưu hóa UI/UX cực tốt. Tiếng Anh giao tiếp trôi chảy. Từng làm leader team 3 người.",
-                // Lưu ý: Link Google Drive phải có đuôi /preview (không dùng /view)
-                pdfLink: "https://drive.google.com/file/d/1O9m49-X_x-P_x_x_x_x_x/preview", // Thay bằng link thật
-                status: "pending" // trạng thái: pending, rejected, accepted
+                pdfLink: "https://drive.google.com/file/d/1O9m49-X_x-P_x_x_x_x_x/preview",
+                status: "pending"
             },
             {
                 id: "UV002",
@@ -200,70 +184,56 @@
                 age: 25,
                 avatar: "https://i.pravatar.cc/150?img=5",
                 desc: "Ưu điểm: Sáng tạo, nhạy bén với trend mxh. Đã từng chạy các chiến dịch ngân sách lớn trên Tiktok và Facebook. Kỹ năng viết content xuất sắc.",
-                pdfLink: "https://drive.google.com/file/d/1O9m49-X_x-P_x_x_x_x_x/preview", // Thay bằng link thật
+                pdfLink: "https://drive.google.com/file/d/1O9m49-X_x-P_x_x_x_x_x/preview",
                 status: "pending"
-            },
-            {
-                id: "Mã_UV_Mới", // Phải khác nhau, ví dụ: UV003
-                name: "Tên Ứng Viên",
-                position: "Vị trí ứng tuyển",
-                yob: 1995,
-                age: 29,
-                avatar: "Link_ảnh_avatar",
-                desc: "Ưu điểm: Ghi chú vào đây...",
-                pdfLink: "Link_Google_Drive_Phải_Có_Đuôi_/preview",
-                status: "pending" // Luôn để pending
             }
         ];
 
-        // Biến toàn cục để lưu ứng viên đang thao tác
         let currentCandidateId = null;
 
         // ==========================================
         // LOGIC GIAO DIỆN (UI)
         // ==========================================
 
-        // Render danh sách ứng viên ra màn hình
         function renderCandidates() {
             const listContainer = document.getElementById('candidate-list');
             listContainer.innerHTML = '';
 
             candidates.forEach(cand => {
-                // Xác định trạng thái nút bấm
                 const isRejected = cand.status === 'rejected';
                 const isAccepted = cand.status === 'accepted';
 
-                // Nút Từ chối: Đỏ nhạt nếu đã từ chối, viền hồng nếu chưa
+                // Class cho Nút Từ chối
                 const rejectBtnClass = isRejected 
-                    ? "bg-red-900/50 text-red-400 border border-red-500 hover:bg-red-900/80" 
-                    : "border border-vibe-accent text-vibe-accent hover:bg-vibe-accent hover:text-white";
+                    ? "bg-red-50 text-red-600 border border-red-200 hover:bg-red-100" 
+                    : "bg-white border border-vibe-accent text-vibe-accent hover:bg-vibe-accent hover:text-white";
                 
-                // Nút Đồng ý: Xanh lá nếu đã đồng ý, Gradient nếu chưa
+                // Class cho Nút Đồng ý
                 const acceptBtnClass = isAccepted
-                    ? "bg-green-600 text-white shadow-green-500/30 hover:bg-green-700"
-                    : "bg-gradient-to-r from-vibe-primary to-vibe-secondary hover:from-purple-500 hover:to-blue-400 text-white shadow-vibe-primary/30";
+                    ? "bg-green-600 text-white shadow-md shadow-green-500/30 hover:bg-green-700"
+                    : "bg-gradient-to-r from-vibe-primary to-vibe-secondary hover:opacity-90 text-white shadow-md shadow-blue-500/30";
 
                 const cardHTML = `
-                    <div class="bg-vibe-card border border-gray-800 rounded-2xl p-6 mb-6 shadow-xl hover:border-vibe-primary/50 transition duration-300">
+                    <div class="bg-white border border-vibe-border rounded-2xl p-6 mb-6 shadow-sm hover:border-vibe-primary/40 hover:shadow-lg transition duration-300">
                         <div class="flex flex-col md:flex-row gap-6">
                             <!-- Trái: Avatar -->
                             <div class="flex-shrink-0 flex justify-center md:justify-start">
-                                <img src="${cand.avatar}" alt="Avatar ${cand.name}" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-gray-700 object-cover shadow-lg">
+                                <img src="${cand.avatar}" alt="Avatar ${cand.name}" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-vibe-lightBlue object-cover shadow-sm">
                             </div>
                             
                             <!-- Phải: Thông tin -->
                             <div class="flex-grow">
                                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                                     <div>
-                                        <h3 class="text-2xl font-bold text-white mb-1">${cand.name}</h3>
-                                        <p class="text-vibe-secondary font-medium text-lg">${cand.position}</p>
+                                        <h3 class="text-2xl font-bold text-vibe-textMain mb-1">${cand.name}</h3>
+                                        <p class="text-vibe-primary font-semibold text-lg">${cand.position}</p>
                                     </div>
-                                    <div class="mt-2 md:mt-0 bg-gray-800 px-4 py-1.5 rounded-full inline-block border border-gray-700">
-                                        <span class="text-gray-300 text-sm">Năm sinh: ${cand.yob} (${cand.age} tuổi)</span>
+                                    <div class="mt-2 md:mt-0 bg-vibe-lightBlue px-4 py-1.5 rounded-full inline-block border border-blue-200">
+                                        <span class="text-vibe-primary font-medium text-sm">Năm sinh: ${cand.yob} (${cand.age} tuổi)</span>
                                     </div>
                                 </div>
-                                <div class="bg-gray-900/50 rounded-xl p-4 mt-3 border border-gray-800">
-                                    <p class="text-gray-300 leading-relaxed text-sm">${cand.desc}</p>
+                                <div class="bg-gray-50 rounded-xl p-4 mt-3 border border-gray-200">
+                                    <p class="text-vibe-textLight leading-relaxed text-sm">${cand.desc}</p>
                                 </div>
                                 
                                 <!-- Nút hành động -->
@@ -276,13 +246,13 @@
                                     
                                     <button 
                                         onclick="openViewModal('${cand.id}')"
-                                        class="px-5 py-2 rounded-lg bg-gray-800 border border-gray-600 hover:bg-gray-700 text-white transition font-semibold">
+                                        class="px-5 py-2 rounded-lg bg-white border border-vibe-primary text-vibe-primary hover:bg-vibe-primary hover:text-white transition font-semibold">
                                         Xem thêm
                                     </button>
                                     
                                     <button 
                                         onclick="toggleAcceptCandidate('${cand.id}')" 
-                                        class="px-5 py-2 rounded-lg transition font-semibold shadow-lg ${acceptBtnClass}">
+                                        class="px-5 py-2 rounded-lg transition font-semibold ${acceptBtnClass}">
                                         ${isAccepted ? 'Đã Đồng ý (Nhấn để Hủy)' : 'Đồng ý'}
                                     </button>
                                 </div>
@@ -301,7 +271,6 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
             document.getElementById(modalId).classList.remove('flex');
-            // Xóa src iframe để dọn dẹp bộ nhớ khi đóng
             if(modalId === 'viewModal') {
                 document.getElementById('pdfIframe').src = '';
             }
@@ -318,7 +287,6 @@
             currentCandidateId = id;
             
             if (cand.status === 'rejected') {
-                // Đang là Đã từ chối -> Chuyển về Pending
                 cand.status = 'pending';
                 renderCandidates();
                 updateViewModalButtons(cand); 
@@ -326,7 +294,6 @@
                 
                 sendDataToAppScript({ action: "cancel_reject", candidateId: cand.id, candidateName: cand.name });
             } else {
-                // Đóng View Modal (nếu đang xem CV) để chuyển sang popup lý do cho mượt
                 if(!document.getElementById('viewModal').classList.contains('hidden')) {
                     closeModal('viewModal');
                     setTimeout(() => {
@@ -345,14 +312,11 @@
             const cand = candidates.find(c => c.id === id);
             
             if (cand.status === 'accepted') {
-                // Đang Đồng ý -> Hủy Đồng ý
                 cand.status = 'pending';
                 alert(`Đã HỦY ĐỒNG Ý ứng viên: ${cand.name}`);
                 sendDataToAppScript({ action: "cancel_accept", candidateId: cand.id, candidateName: cand.name });
             } else {
-                // Chuyển sang Đồng ý
                 cand.status = 'accepted';
-                
                 if(!document.getElementById('viewModal').classList.contains('hidden')) {
                     closeModal('viewModal');
                     setTimeout(() => alert(`Đã ghi nhận ĐỒNG Ý ứng viên: ${cand.name}`), 300);
@@ -372,24 +336,28 @@
             const btnAccept = document.getElementById('modalBtnAccept');
             if(!btnReject || !btnAccept) return;
 
+            // Reset class cơ bản
             btnReject.className = "px-6 py-2.5 rounded-lg border font-semibold transition ";
-            btnAccept.className = "px-6 py-2.5 rounded-lg font-semibold transition shadow-lg ";
+            btnAccept.className = "px-6 py-2.5 rounded-lg font-semibold transition ";
 
             if (cand.status === 'rejected') {
                 btnReject.innerText = 'Đã từ chối (Nhấn để hủy)';
-                btnReject.classList.add("bg-red-900/50", "border-red-500", "text-red-400", "hover:bg-red-900/80");
+                btnReject.className += "bg-red-50 border-red-200 text-red-600 hover:bg-red-100";
+                
                 btnAccept.innerText = 'Đồng ý';
-                btnAccept.classList.add("bg-gray-800", "text-gray-300", "border", "border-gray-600", "hover:border-gray-500");
+                btnAccept.className += "bg-white text-gray-600 border-gray-300 hover:bg-gray-50 shadow-sm";
             } else if (cand.status === 'accepted') {
                 btnAccept.innerText = 'Đã Đồng ý (Nhấn để hủy)';
-                btnAccept.classList.add("bg-green-600", "text-white", "shadow-green-500/30", "hover:bg-green-700");
+                btnAccept.className += "bg-green-600 text-white shadow-md shadow-green-500/30 hover:bg-green-700";
+                
                 btnReject.innerText = 'Từ chối';
-                btnReject.classList.add("bg-gray-800", "border-gray-600", "text-gray-300", "hover:border-vibe-accent", "hover:text-vibe-accent");
+                btnReject.className += "bg-white border-gray-300 text-gray-600 hover:border-vibe-accent hover:text-vibe-accent";
             } else {
                 btnReject.innerText = 'Từ chối';
-                btnReject.classList.add("border-vibe-accent", "text-vibe-accent", "hover:bg-vibe-accent", "hover:text-white");
+                btnReject.className += "border-vibe-accent text-vibe-accent hover:bg-vibe-accent hover:text-white bg-white";
+                
                 btnAccept.innerText = 'Đồng ý';
-                btnAccept.classList.add("bg-gradient-to-r", "from-vibe-primary", "to-vibe-secondary", "text-white", "shadow-vibe-primary/30");
+                btnAccept.className += "bg-gradient-to-r from-vibe-primary to-vibe-secondary text-white hover:opacity-90 shadow-md shadow-blue-500/30";
             }
         }
 
@@ -410,9 +378,7 @@
             
             iframe.src = cand.pdfLink;
 
-            // Đồng bộ trạng thái 2 nút trong popup
             updateViewModalButtons(cand);
-
             openModal('viewModal');
         }
 
@@ -420,27 +386,24 @@
         // XỬ LÝ DATA & GỬI LÊN APPSCRIPT
         // ==========================================
 
-        // Xử lý submit Form Từ chối
         function submitReject(event) {
             event.preventDefault();
             
             const cand = candidates.find(c => c.id === currentCandidateId);
             const formData = new FormData(event.target);
             
-            const reasons = formData.getAll('reason'); // Mảng các checkbox
-            const otherReason = formData.get('otherReason'); // Textarea
+            const reasons = formData.getAll('reason');
+            const otherReason = formData.get('otherReason');
 
             if (reasons.length === 0 && otherReason.trim() === '') {
                 alert("Vui lòng chọn ít nhất 1 lý do hoặc điền lý do khác!");
                 return;
             }
 
-            // Đổi trạng thái UI ngay lập tức
             cand.status = 'rejected';
             closeModal('rejectModal');
             renderCandidates(); 
 
-            // Chuẩn bị data gửi đi
             const payload = {
                 action: "reject",
                 candidateId: cand.id,
@@ -453,11 +416,9 @@
             sendDataToAppScript(payload);
         }
 
-        // Xử lý Yêu cầu Gửi Email
         function requestEmail() {
             if(!confirm("Bạn có chắc chắn muốn gửi thông tin đánh giá các ứng viên qua Email ngay bây giờ?")) return;
 
-            // Thu thập trạng thái hiện tại của tất cả mọi người
             const summary = candidates.map(c => ({
                 id: c.id,
                 name: c.name,
@@ -467,18 +428,16 @@
             const payload = {
                 action: "send_email",
                 timestamp: new Date().toISOString(),
-                candidatesSummary: summary // Gửi list danh sách để AppScript biết gửi ai
+                candidatesSummary: summary 
             };
 
             sendDataToAppScript(payload);
             alert("Đã ghi nhận yêu cầu Gửi Email! Hệ thống sẽ xử lý và lưu dữ liệu mới nhất.");
         }
 
-        // Hàm chung gửi data lên Google AppScript
         function sendDataToAppScript(data) {
             console.log("Đang gửi dữ liệu lên Google Sheet...", data);
             
-            // NẾU CHƯA GẮN LINK, BÁO LỖI LOG NHƯNG UI VẪN CHẠY
             if(APPSCRIPT_URL.includes("YOUR_SCRIPT_ID_HERE")) {
                 console.warn("Vui lòng gắn link Google AppScript vào biến APPSCRIPT_URL để lưu dữ liệu thật.");
                 return;
@@ -486,8 +445,6 @@
 
             fetch(APPSCRIPT_URL, {
                 method: 'POST',
-                // Sử dụng mode no-cors khi gọi AppScript từ domain khác để tránh lỗi CORS trên trình duyệt
-                // Lưu ý: no-cors sẽ không nhận được response data trả về từ server
                 mode: 'no-cors', 
                 headers: {
                     'Content-Type': 'application/json'
